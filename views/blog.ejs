@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('./partials/head') %>
+    <title><%= blog.title %> | Blog</title>
+    <style>
+      .comment-box {
+        border: 1px solid #e0e0e0;
+        padding: 1rem;
+        border-radius: 8px;
+        margin-bottom: 1rem;
+        background-color: #f9f9f9;
+      }
+      .profile-img {
+        border-radius: 50%;
+        object-fit: cover;
+      }
+    </style>
+  </head>
+  <body>
+    <%- include('./partials/nav') %>
+
+    <div class="container mt-5">
+      <!-- Blog Title -->
+      <div class="mb-4">
+        <h1 class="fw-bold"><%= blog.title %></h1>
+        <p class="text-muted">Posted by 
+          <img src="<%= blog.createdBy.profileImageUrl %>" width="40" class="profile-img me-2" />
+          <%= blog.createdBy.fullName %>
+        </p>
+      </div>
+
+      <!-- Cover Image -->
+      <% if (blog.coverImageURL) { %>
+        <img src="<%= blog.coverImageURL %>" width="300" height="300" class="img-fluid rounded mb-4" />
+      <% } %>
+
+      <!-- Blog Body -->
+      <div class="mb-5">
+        <p class="fs-5"><%= blog.body %></p>
+      </div>
+
+      <!-- Comments Section -->
+      <div class="mb-4">
+        <h3>Comments (<%= comments.length %>)</h3>
+
+        <!-- Comment Form -->
+        <% if (locals.user) { %>
+        <form action="/blog/comment/<%= blog._id %>" method="post" class="mb-4">
+          <div class="mb-3">
+            <input
+              type="text"
+              name="content"
+              class="form-control"
+              placeholder="Enter your comment..."
+              required
+            />
+          </div>
+          <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+        </form>
+        <% } else { %>
+        <p class="text-muted">You must be logged in to comment.</p>
+        <% } %>
+      </div>
+
+      <!-- List of Comments -->
+      <% comments.forEach(comment => { %>
+        <div class="comment-box d-flex align-items-start">
+          <img src="<%= comment.createdBy.profileImageUrl %>" width="40" height="40" class="profile-img me-3" />
+          <div>
+            <strong><%= comment.createdBy.fullName %></strong>
+            <p class="mb-1"><%= comment.content %></p>
+            <small class="text-muted"><%= comment.createdAt.toLocaleDateString() %></small>
+          </div>
+        </div>
+      <% }) %>
+
+    </div>
+
+    <%- include('./partials/script') %>
+  </body>
+</html>

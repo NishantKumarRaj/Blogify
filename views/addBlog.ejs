@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('./partials/head') %>
+    <title>Add New Blog</title>
+    <style>
+      .form-container {
+        max-width: 700px;
+        margin: auto;
+        background: #f8f9fa;
+        padding: 2rem;
+        border-radius: 10px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
+      }
+
+      textarea.form-control {
+        min-height: 150px;
+        resize: vertical;
+      }
+    </style>
+  </head>
+  <body>
+    <%- include('./partials/nav') %>
+
+    <div class="container mt-5">
+      <div class="form-container">
+        <h2 class="mb-4 text-center">Create a New Blog Post</h2>
+        <form action="/blog" method="post" enctype="multipart/form-data">
+          <!-- Cover Image -->
+          <div class="mb-3">
+            <label for="coverImage" class="form-label">Cover Image</label>
+            <input
+              type="file"
+              class="form-control"
+              id="coverImage"
+              name="coverImage"
+              required
+            />
+          </div>
+
+          <!-- Title -->
+          <div class="mb-3">
+            <label for="title" class="form-label">Title</label>
+            <input
+              type="text"
+              class="form-control"
+              id="title"
+              name="title"
+              placeholder="Enter blog title"
+              required
+            />
+          </div>
+
+          <!-- Body -->
+          <div class="mb-3">
+            <label for="body" class="form-label">Body</label>
+            <textarea
+              class="form-control"
+              id="body"
+              name="body"
+              placeholder="Write your blog content here..."
+              required
+            ></textarea>
+          </div>
+
+          <!-- Submit Button -->
+          <div class="d-grid">
+            <button class="btn btn-primary btn-lg">Publish Blog</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <%- include('./partials/script') %>
+  </body>
+</html>
