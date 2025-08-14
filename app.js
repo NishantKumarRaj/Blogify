@@ -14,7 +14,8 @@ const PORT = process.env.PORT || 8001;
 
 mongoose
   // .connect("mongodb://localhost:27017/blogify")
-  .connect(process.env.MONGO_URL)
+  // .connect(process.env.MONGO_URL)
+  .connect("mongodb+srv://nishantkrraj111:PFV9blriwonJui5y@cluster0.aycmnnn.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
   .then((e) => console.log("MongoDB Connected"));
 
 app.set("view engine", "ejs");
